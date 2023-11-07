@@ -1,0 +1,35 @@
+<form *ngIf="showForm" [formGroup]="form" (ngSubmit)="submit()">
+    <h1 style="margin: auto">Форма </h1>
+    <mat-form-field>
+        <mat-label>Введите почту</mat-label>
+        <input matInput placeholder="pat@example.com" formControlName="email" required>
+        <mat-error *ngIf="email">некорректный email</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Пароль</mat-label>
+        <input matInput maxlength="20" placeholder="pat@example.com" formControlName="password" required>
+        <mat-error *ngIf="password.invalid">пароль слишком маленький</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Пароль еще раз</mat-label>
+        <input matInput maxlength="20" placeholder="pat@example.com" formControlName="passwordConfirm" required>
+        <mat-error *ngIf="passwordConfirm.errors!=null && passwordConfirm.errors['minlength']">пароль слишком
+            маленький</mat-error>
+        <mat-error *ngIf="passwordConfirm.errors!=null && passwordConfirm.errors['notequivalent']">пароли не
+            совпадают</mat-error>
+    </mat-form-field>
+
+    <div class="button-wrapper">
+        <button mat-flat-button color="primary">Отправить</button>
+    </div>
+</form>
+
+<div *ngIf="showEmailField" class="emailForm">
+    <h1>На почту {{email.value}} был выслан код</h1>
+    <mat-form-field>
+        <input matInput [(ngModel)]="emailCode">
+    </mat-form-field>
+    <button mat-flat-button color="primary" (click)="navigate()">Отправить</button>
+</div>
